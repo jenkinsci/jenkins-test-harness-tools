@@ -38,6 +38,10 @@ THE SOFTWARE.
     <name>Test harness tools</name>
     <description>Tool installations that may be used by functional tests.</description>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <scm>
         <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/jenkinsci/${project.artifactId}.git</developerConnection>
