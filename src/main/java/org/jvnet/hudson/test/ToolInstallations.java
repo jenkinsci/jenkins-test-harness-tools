@@ -26,6 +26,8 @@ package org.jvnet.hudson.test;
 import hudson.FilePath;
 import hudson.Functions;
 import hudson.Launcher;
+import hudson.plugins.gradle.Gradle;
+import hudson.plugins.gradle.GradleInstallation;
 import hudson.tasks.Ant;
 import hudson.tasks.Maven;
 import hudson.util.StreamTaskListener;
@@ -127,6 +129,33 @@ public class ToolInstallations {
         }
         Jenkins.getInstance().getDescriptorByType(Ant.DescriptorImpl.class).setInstallations(antInstallation);
         return antInstallation;
+    }
+
+    /**
+     * Extracts Gradle and configures it.
+     */
+    public static GradleInstallation configureDefaultGradle(TemporaryFolder tmp) throws Exception {
+        GradleInstallation installation;
+        if (System.getenv("GRADLE_HOME") != null) {
+            installation = new GradleInstallation("default", System.getenv("GRADLE_HOME"), JenkinsRule.NO_PROPERTIES);
+        } else {
+            LOGGER.warning("Extracting a copy of Gradle bundled in the test harness. "
+                    + "To avoid a performance hit, set the environment variable GRADLE_HOME to point to a Gradle installation.");
+            FilePath gradle = Jenkins.getInstance().getRootPath().createTempFile("gradle", "zip");
+            gradle.copyFrom(JenkinsRule.class.getClassLoader().getResource("gradle-2.13-bin.zip"));
+            File gradleHome = tmp.newFolder("gradleHome");
+            gradle.unzip(new FilePath(gradleHome));
+            // TODO: switch to tar that preserves file permissions more easily
+            try {
+                GNUCLibrary.LIBC.chmod(new File(gradleHome, "gradle-2.13/bin/gradle").getPath(), 0755);
+            } catch (LinkageError x) {
+                // skip; TODO 1.630+ can use Functions.isGlibcSupported
+            }
+
+            installation = new GradleInstallation("default", new File(gradleHome, "gradle-2.13").getAbsolutePath(), JenkinsRule.NO_PROPERTIES);
+        }
+        Jenkins.getInstance().getDescriptorByType(Gradle.DescriptorImpl.class).setInstallations(installation);
+        return installation;
     }
 
     private ToolInstallations() {
