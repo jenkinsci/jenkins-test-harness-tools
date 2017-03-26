@@ -61,6 +61,14 @@ public class ToolInstallations {
         return m3;
     }
 
+    public static Maven.MavenInstallation configureMaven33() throws Exception {
+        Maven.MavenInstallation mvn = configureDefaultMaven("apache-maven-3.3.9", Maven.MavenInstallation.MAVEN_30);
+
+        Maven.MavenInstallation m33 = new Maven.MavenInstallation("apache-maven-3.3.9", mvn.getHome(), JenkinsRule.NO_PROPERTIES);
+        Jenkins.getInstance().getDescriptorByType(Maven.DescriptorImpl.class).setInstallations(m33);
+        return m33;
+    }
+
     /**
      * Locates Maven2 and configure that as the only Maven in the system.
      */
