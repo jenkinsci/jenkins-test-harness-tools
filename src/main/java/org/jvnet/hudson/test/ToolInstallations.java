@@ -62,7 +62,27 @@ public class ToolInstallations {
     }
 
     /**
-     * Locates Maven2 and configure that as the only Maven in the system.
+     * Declare "Maven 3.5.0" as the "default" Maven installation in Jenkins and as the Maven installation named "apache-maven-3.5.0".
+     * Note that both {@link hudson.tasks.Maven.MavenInstallation} share the same Maven binaries.
+     *
+     * @return the "apache-maven-3.5.0" Maven {@link hudson.tasks.Maven.MavenInstallation}
+     * @throws Exception
+     */
+    public static Maven.MavenInstallation configureMaven35() throws Exception {
+        Maven.MavenInstallation mvn = configureDefaultMaven("apache-maven-3.5.0", Maven.MavenInstallation.MAVEN_30);
+
+        Maven.MavenInstallation maven350 = new Maven.MavenInstallation("apache-maven-3.5.0", mvn.getHome(), JenkinsRule.NO_PROPERTIES);
+        Jenkins.getInstance().getDescriptorByType(Maven.DescriptorImpl.class).setInstallations(maven350);
+        return maven350;
+    }
+
+
+    /**
+     * Locates Maven and configure that as the only Maven in the system.
+     *
+     * @param mavenVersion desired maven version (e.g. {@code apache-maven-3.5.0})
+     * @param mavenReqVersion minimum maven version defined using the constants {@link Maven.MavenInstallation#MAVEN_20},
+     *    {@link Maven.MavenInstallation#MAVEN_21} and {@link Maven.MavenInstallation#MAVEN_30}
      */
     public static Maven.MavenInstallation configureDefaultMaven(String mavenVersion, int mavenReqVersion) throws Exception {
         // first if we are running inside Maven, pick that Maven, if it meets the criteria we require..
