@@ -6,7 +6,7 @@ Extends https://github.com/jenkinsci/jenkins-test-harness to include utilities t
 
 # Changelog
 
-## 2.1 (upcoming)
+## 2.2 (2017 Jun 30)
 
 * Updated Maven installations.
 * Added a Gradle installation.
