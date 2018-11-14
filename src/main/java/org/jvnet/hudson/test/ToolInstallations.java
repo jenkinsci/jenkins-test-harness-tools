@@ -62,18 +62,18 @@ public class ToolInstallations {
     }
 
     /**
-     * Declare "Maven 3.5.0" as the "default" Maven installation in Jenkins and as the Maven installation named "apache-maven-3.5.0".
+     * Declare "Maven 3.5.4" as the "default" Maven installation in Jenkins and as the Maven installation named "apache-maven-3.5.4".
      * Note that both {@link hudson.tasks.Maven.MavenInstallation} share the same Maven binaries.
      *
-     * @return the "apache-maven-3.5.0" Maven {@link hudson.tasks.Maven.MavenInstallation}
+     * @return the "apache-maven-3.5.4" Maven {@link hudson.tasks.Maven.MavenInstallation}
      * @throws Exception
      */
     public static Maven.MavenInstallation configureMaven35() throws Exception {
-        Maven.MavenInstallation mvn = configureDefaultMaven("apache-maven-3.5.0", Maven.MavenInstallation.MAVEN_30);
+        Maven.MavenInstallation mvn = configureDefaultMaven("apache-maven-3.5.4", Maven.MavenInstallation.MAVEN_30);
 
-        Maven.MavenInstallation maven350 = new Maven.MavenInstallation("apache-maven-3.5.0", mvn.getHome(), JenkinsRule.NO_PROPERTIES);
-        Jenkins.getInstance().getDescriptorByType(Maven.DescriptorImpl.class).setInstallations(maven350);
-        return maven350;
+        Maven.MavenInstallation maven354 = new Maven.MavenInstallation("apache-maven-3.5.4", mvn.getHome(), JenkinsRule.NO_PROPERTIES);
+        Jenkins.getInstance().getDescriptorByType(Maven.DescriptorImpl.class).setInstallations(maven354);
+        return maven354;
     }
 
 
