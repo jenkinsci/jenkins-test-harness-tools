@@ -78,6 +78,21 @@ public class ToolInstallations {
 
 
     /**
+     * Declare "Maven 3.6.3" as the "default" Maven installation in Jenkins and as the Maven installation named "apache-maven-3.6.3".
+     * Note that both {@link hudson.tasks.Maven.MavenInstallation} share the same Maven binaries.
+     *
+     * @return the "apache-maven-3.6.3" Maven {@link hudson.tasks.Maven.MavenInstallation}
+     * @throws Exception
+     */
+    public static Maven.MavenInstallation configureMaven36() throws Exception {
+        Maven.MavenInstallation mvn = configureDefaultMaven("apache-maven-3.6.3", Maven.MavenInstallation.MAVEN_30);
+
+        Maven.MavenInstallation maven363 = new Maven.MavenInstallation("apache-maven-3.6.3", mvn.getHome(), JenkinsRule.NO_PROPERTIES);
+        Jenkins.getInstance().getDescriptorByType(Maven.DescriptorImpl.class).setInstallations(maven363);
+        return maven363;
+    }
+
+    /**
      * Locates Maven and configure that as the only Maven in the system.
      *
      * @param mavenVersion desired maven version (e.g. {@code apache-maven-3.5.0})
