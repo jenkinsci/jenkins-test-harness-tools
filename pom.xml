@@ -133,6 +133,14 @@ THE SOFTWARE.
                                     <classifier>bin</classifier>
                                     <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                                 </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.apache.maven</groupId>
+                                    <artifactId>apache-maven</artifactId>
+                                    <version>3.9.1</version>
+                                    <type>zip</type>
+                                    <classifier>bin</classifier>
+                                    <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                </artifactItem>
                             </artifactItems>
                         </configuration>
                     </execution>
