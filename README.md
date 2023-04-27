@@ -2,7 +2,7 @@ Extends https://github.com/jenkinsci/jenkins-test-harness to include utilities t
 
 **New versions are unreleasable.** Alternatives to consider:
 * allowing plugins to specify `test`-scoped dependencies on tool `zip`s, with some utility to extract those in `jenkins-test-harness`, and an extension handler in `maven-hpi-plugin` allowing them to be added to the classpath
-* use `docker-fixtures` to connect to agents running well-defined versions of various tools
+* use [Testcontainers](https://www.testcontainers.org/) to connect to agents running well-defined versions of various tools
 
 # Changelog
 
